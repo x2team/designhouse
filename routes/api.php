@@ -18,6 +18,23 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/', function(){
-    return response()->json(['message' => 'Hello word'], 200);
+// Route::get('/', function(){
+//     return response()->json(['message' => 'Hello word'], 200);
+// });
+
+
+// Route group for authenticated users only
+Route::group(['middleware' => ['auth:api']], function(){
+
+});
+
+
+
+// Routes for guest only
+Route::group(['middleware' => ['guest:api']], function(){
+
+    Route::post('register', 'App\Http\Controllers\Auth\RegisterController@register');
+    Route::post('verification/verify', 'App\Http\Controllers\Auth\VerificationController@verify');
+    Route::post('verification/resend', 'App\Http\Controllers\Auth\VerificationController@resend');
+
 });
