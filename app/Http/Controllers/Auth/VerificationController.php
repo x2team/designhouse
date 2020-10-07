@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\URL;
 
 // use Illuminate\Foundation\Auth\VerifiesEmails;
 
@@ -45,7 +47,11 @@ class VerificationController extends Controller
 
     public function verify(Request $request, User $user)
     {
-
+        // check if the url is a valid signed url
+        if(! URL::hasValidSignature($request))
+        {
+            
+        }
     }
     
     public function resend(Request $request)
