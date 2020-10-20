@@ -99,6 +99,12 @@ class LoginController extends Controller
                 $this->username() => 'Ma Xac thuc khong hop le',
             ]);
         }
+    }
 
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        return response()->json(['message' => 'Dang xuat thanh cong']);
     }
 }
