@@ -37,6 +37,6 @@ class MatchOldPassword implements Rule
      */
     public function message()
     {
-        return 'Mat khau cu khong chinh xac.';
+        return 'Mật khẩu hiện tại không chính xác.';
     }
 }

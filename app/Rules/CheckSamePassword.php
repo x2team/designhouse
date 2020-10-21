@@ -37,6 +37,6 @@ class CheckSamePassword implements Rule
      */
     public function message()
     {
-        return 'Mat khau moi phai khac voi mat khau cu.';
+        return 'Mật khẩu mới không được trùng với mật khẩu cũ.';
     }
 }

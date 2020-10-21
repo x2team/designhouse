@@ -37,10 +37,13 @@ Route::get('me', 'App\Http\Controllers\User\MeController@getMe');
 
 // Route group for authenticated users only
 Route::group(['middleware' => ['auth:api']], function(){
-    
+
     Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout');
     Route::put('settings/profile', 'App\Http\Controllers\User\SettingController@updateProfile');
     Route::put('settings/password', 'App\Http\Controllers\User\SettingController@updatePassword');
+
+    // Upload Designs
+    Route::post('designs', 'App\Http\Controllers\Design\UploadController@upload');
 
 });
 

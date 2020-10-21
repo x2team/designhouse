@@ -53,6 +53,6 @@ class SettingController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return response()->json(['message' => 'Mat khau da duoc cap nhat.'], 200);
+        return response()->json(['message' => 'Mật khẩu của bạn đã được cập nhật.'], 200);
     }
 }
