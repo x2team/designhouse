@@ -27,7 +27,7 @@ class AddFieldsToDesigns extends Migration
     public function down()
     {
         Schema::table('designs', function (Blueprint $table) {
-            $table->dropColumn(['upload_successfully', 'disk']);
+            $table->dropColumn(['upload_successfuly', 'disk']);
         });
     }
 }
