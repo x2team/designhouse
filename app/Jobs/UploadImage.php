@@ -57,7 +57,7 @@ class UploadImage implements ShouldQueue
             
             
             
-            // Save images to permanent disk
+            // Save images to permanent disk : public, s3
             // Original image
             if(Storage::disk($disk)
                     ->put('uploads/designs/original/'. $filename, fopen($original_file, 'r+'))){
