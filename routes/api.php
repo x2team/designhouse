@@ -44,7 +44,8 @@ Route::group(['middleware' => ['auth:api']], function(){
 
     // Upload Designs
     Route::post('designs', 'App\Http\Controllers\Design\UploadController@upload');
-
+    Route::put('designs/{id}', 'App\Http\Controllers\Design\DesignController@update');
+ 
 });
 
 

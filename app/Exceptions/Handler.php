@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+// use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -33,5 +36,18 @@ class Handler extends ExceptionHandler
     public function register()
     {
         //
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if($e instanceof AuthorizationException)
+        {
+            if($request->expectsJson()){
+                return response()->json(['errors' => [
+                    "message" => "Bạn không có quyền thực hiện hành động này."
+                ]], 403);
+            }
+        }
+        return parent::render($request, $e);
     }
 }
