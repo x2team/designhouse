@@ -4,13 +4,15 @@ namespace App\Jobs;
 
 use App\Models\Design;
 use Illuminate\Bus\Queueable;
+// use Intervention\Image\Image;
+// use Image;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Image;
 
 class UploadImage implements ShouldQueue
 {

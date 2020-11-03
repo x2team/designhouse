@@ -30,7 +30,7 @@ class Design extends Model
 
 
 
-    public function getImageAttribute()
+    public function getImagesAttribute()
     {
         return [
             'thumbnail' => $this->getImagePath('thumbnail'),

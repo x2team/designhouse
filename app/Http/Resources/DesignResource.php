@@ -20,7 +20,7 @@ class DesignResource extends JsonResource
             'user' => new UserResource($this->user),
             'title' => $this->title,
             'slug' => $this->slug,
-            'image' => $this->image,
+            'image' => $this->images,
             'is_live' => $this->is_live,
             'description' => $this->description,
             'created_dates'         => [
