@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DesignResource;
+use Illuminate\Support\Facades\Storage;
 
 class DesignController extends Controller
 {
@@ -30,6 +31,25 @@ class DesignController extends Controller
         ]);
         
         return new DesignResource($design);
-        // return response()->json($design, 200);
+    }
+
+    public function destroy($id)
+    {
+        $design = Design::findOrFail($id);
+
+        $this->authorize('delete', $design);
+
+        // Delete files associated to the record
+        foreach(['original', 'thumbnail', 'large'] as $size)
+        {
+            // check if exists in database
+            if(Storage::disk($design->disk)->exists("uploads/designs/{$size}/" . $design->image)){
+                Storage::disk($design->disk)->delete("uploads/designs/{$size}/" . $design->image);
+            }
+        }
+
+        $design->delete();
+
+        return response()->json(["message" => "Record deleted."], 200);
     }
 }

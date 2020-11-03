@@ -6,6 +6,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,14 @@ class Handler extends ExceptionHandler
                 ]], 403);
             }
         }
+
+        if($e instanceof ModelNotFoundException && $request->expectsJson())
+        {
+            return response()->json(['errors' => [
+                "message" => "Dữ liệu không tìm thấy 404."
+            ]], 404);
+        }
+
         return parent::render($request, $e);
     }
 }
