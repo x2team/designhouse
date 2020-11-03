@@ -6,7 +6,7 @@ use App\Models\Design;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Resources\DesignResource;
 
 class DesignController extends Controller
 {
@@ -28,7 +28,8 @@ class DesignController extends Controller
             'slug' => Str::slug($request->title),
             'is_live' => ! $design->upload_successfuly ? false : $request->is_live
         ]);
-
-        return response()->json($design, 200);
+        
+        return new DesignResource($design);
+        // return response()->json($design, 200);
     }
 }

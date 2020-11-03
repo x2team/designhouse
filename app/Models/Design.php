@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Design extends Model
 {
@@ -25,5 +26,22 @@ class Design extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+
+    public function getImageAttribute()
+    {
+        return [
+            'thumbnail' => $this->getImagePath('thumbnail'),
+            'large' => $this->getImagePath('large'),
+            'original' => $this->getImagePath('original'),
+        ];
+    }
+
+    protected function getImagePath($size)
+    {
+        return Storage::disk($this->disk)
+                    ->url("uploads/designs/{$size}/" . $this->image);
     }
 }
