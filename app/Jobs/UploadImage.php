@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\Design;
 use Illuminate\Bus\Queueable;
-// use Intervention\Image\Image;
 // use Image;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
@@ -39,22 +38,38 @@ class UploadImage implements ShouldQueue
     {
         $disk = $this->design->disk;
         $filename = $this->design->image;
-        $original_file = storage_path() . '/uploads/original/' . $filename;
-        // dd($original_file);
+        $original_file = storage_path() . '/tmp/original/' . $filename;
+        
+        
+        $original_path = storage_path() . '/tmp/original';
+        $large_path = storage_path() . '/tmp/large';
+        $thumbnail_path = storage_path() . '/tmp/thumbnail';
+        if (!file_exists($original_path)) {
+            Storage::disk('tmp')->makeDirectory('tmp/original');
+        }
+        if (!file_exists($large_path)) {
+            Storage::disk('tmp')->makeDirectory('tmp/large');
+        }
+        if (!file_exists($thumbnail_path)) {
+            Storage::disk('tmp')->makeDirectory('tmp/thumbnail');
+        }
+
+
+
         try {
             // Create a Large Image and save to tmp disk
             Image::make($original_file)
                 ->fit(800, 600, function($constraint){
                     $constraint->aspectRatio();
                 })
-                ->save($large = storage_path('uploads/large/' . $filename));
+                ->save($large = storage_path('tmp/large/' . $filename));
             
             // Create the Thumnbnail Image and save to tmp disk
             Image::make($original_file)
                 ->fit(250, 200, function($constraint){
                     $constraint->aspectRatio();
                 })
-                ->save($thumbnail = storage_path('uploads/thumbnail/' . $filename));
+                ->save($thumbnail = storage_path('tmp/thumbnail/' . $filename));
 
             
             
@@ -73,7 +88,7 @@ class UploadImage implements ShouldQueue
             // Thumbnail image
             if(Storage::disk($disk)
                     ->put('uploads/designs/thumbnail/'. $filename, fopen($thumbnail, 'r+'))){
-                        File::delete($thumbnail ); 
+                        File::delete($thumbnail); 
                     };
             /**
              * Update database record with success flag
