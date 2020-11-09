@@ -32,6 +32,10 @@ use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::get('me', 'App\Http\Controllers\User\MeController@getMe');
+// Get designs
+Route::get('designs', 'App\Http\Controllers\Design\DesignController@index');
+// Get users
+Route::get('users', 'App\Http\Controllers\User\UserController@index');
 
 
 
