@@ -3,10 +3,11 @@
 namespace App\Exceptions;
 
 // use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Exceptions\ModelNotDefine;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -55,6 +56,17 @@ class Handler extends ExceptionHandler
             return response()->json(['errors' => [
                 "message" => "Dữ liệu không tìm thấy 404."
             ]], 404);
+        }
+
+        
+        /**
+         * BeeSupper added
+         */
+        if($e instanceof ModelNotDefine && $request->expectsJson())
+        {
+            return response()->json(['errors' => [
+                "message" => "Model khong duoc dinh nghia ."
+            ]], 500);
         }
 
         return parent::render($request, $e);

@@ -1,13 +1,17 @@
 <?php
 
-namespace App\Repositores\Eloquent;
+namespace App\Repositories\Eloquent;
 use App\Models\User;
-use App\Repositores\Contracts\IUser;
+use App\Models\Design;
+use App\Repositories\Contracts\IUser;
+use App\Repositories\Eloquent\BaseRepository;
 
-class UserRepository implements IUser
+class UserRepository extends BaseRepository implements IUser
 {
-    public function all()
-    {
-        return User::all();
-    }
+
+    // public function all()
+    // {
+    //     return User::all(); // App\Models\Design
+    // }
+    
 }
